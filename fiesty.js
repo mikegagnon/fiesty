@@ -1,9 +1,17 @@
 
-var delay_new_pet_min = 400;
-var delay_new_pet_max = 800;
+var delay_value = 10;
 
-var delay_hide_pet_min = 2000;
-var delay_hide_pet_max = 4000;
+var delay_new_pet_min_base = 50;
+var delay_new_pet_max_base = 100;
+
+var delay_hide_pet_min_base = 300;
+var delay_hide_pet_max_base = 600;
+
+var delay_new_pet_min = delay_new_pet_min_base * delay_value;
+var delay_new_pet_max = delay_new_pet_max_base * delay_value;
+
+var delay_hide_pet_min = delay_hide_pet_min_base * delay_value;
+var delay_hide_pet_max = delay_hide_pet_max_base * delay_value;
 
 var EMPTY = 0;
 var HAPPY = "happy.png";
@@ -76,6 +84,22 @@ function lightClick(row, col) {
     }
 }
 
+function get_delay_new_pet_max() {
+    return delay_new_pet_max;
+}
+
+function get_delay_new_pet_min() {
+    return delay_new_pet_min;
+}
+
+function get_delay_hide_pet_max() {
+    return delay_hide_pet_max;
+}
+
+function get_delay_hide_pet_min() {
+    return delay_hide_pet_min;
+}
+
 function new_pet() {
 
     var row = getRandomInt(0, numRows);
@@ -92,7 +116,7 @@ function new_pet() {
 
     }
 
-    setTimeout(new_pet, getRandomInt(delay_new_pet_min, delay_new_pet_max));
+    setTimeout(new_pet, getRandomInt(get_delay_new_pet_min(), get_delay_new_pet_max()));
 
 
     function rm_pet() {
@@ -100,9 +124,22 @@ function new_pet() {
         $("#" + getPetId(row, col)).remove();
     }
 
-    setTimeout(rm_pet, getRandomInt(delay_hide_pet_min, delay_hide_pet_max));
+    var x = getRandomInt(get_delay_hide_pet_min(), get_delay_hide_pet_max());
+    console.log(x);
+    setTimeout(rm_pet, x);
 
 }
 
-setTimeout(new_pet, getRandomInt(delay_new_pet_min, delay_new_pet_max));
+setTimeout(new_pet, getRandomInt(get_delay_new_pet_min(), get_delay_new_pet_max()));
+
+
+$("#slider").on("input", function(){
+    delay_new_pet_min = delay_new_pet_min_base * this.value;
+    delay_new_pet_max = delay_new_pet_max_base * this.value;
+
+    delay_hide_pet_min = delay_hide_pet_min_base * this.value;
+    delay_hide_pet_max = delay_hide_pet_max_base * this.value;
+
+    console.log(delay_hide_pet_min, delay_hide_pet_max);
+});
 
