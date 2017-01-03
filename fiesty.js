@@ -19,6 +19,9 @@ var matrix = [
     [0, 0, 0, 0]
 ];
 
+var hits = 0;
+var misses = 0;
+
 function getLightId(row, col) {
     return "#light-" + row + "-" + col;
 }
@@ -43,7 +46,34 @@ function drawPet(row, col, pet ) {
 
 
 function lightClick(row, col) {
-    alert(row + ", " + col);
+    if (matrix[row][col] == HAPPY) {
+        var lightId = getLightId(row, col);
+        $("#" + getPetId(row, col)).remove();
+        $("#misses").css("background-color", "red");
+
+        function clearBackground() {
+            $("#misses").css("background-color", "");
+        }
+
+        setTimeout(clearBackground, 300);
+
+        misses += 1;
+        $("#misses").text("Misses: " + misses);
+
+    } else if (matrix[row][col] == ANGRY) {
+        var lightId = getLightId(row, col);
+        $("#" + getPetId(row, col)).remove();
+        $("#hits").css("background-color", "green");
+
+        function clearBackground() {
+            $("#hits").css("background-color", "");
+        }
+
+        setTimeout(clearBackground, 300);
+
+        hits += 1;
+        $("#hits").text("Hits: " + hits);
+    }
 }
 
 function new_pet() {
