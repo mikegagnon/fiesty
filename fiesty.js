@@ -1,9 +1,9 @@
 
-var delay_new_pet_min = 200;
-var delay_new_pet_max = 200;
+var delay_new_pet_min = 400;
+var delay_new_pet_max = 800;
 
-var delay_hide_pet_min = 1000;
-var delay_hide_pet_max = 2000;
+var delay_hide_pet_min = 2000;
+var delay_hide_pet_max = 4000;
 
 var EMPTY = 0;
 var HAPPY = "happy.png";
